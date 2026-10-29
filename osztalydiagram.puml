@@ -1,0 +1,54 @@
+@startuml
+
+interface Ora {
+  +most(): long
+}
+class RendszerOra
+class FixOra <<teszt>> {
+  +percetEloreTekeres(hanyPercet: long)
+}
+
+abstract class Jarmu {
+  -rendszam: String
+  +Jarmu(rendszam: String)
+  +{static} rendszamTisztitasa(String): String
+  +getRendszam(): String
+  +{abstract} dij(percek: long): double
+  #parkolasiDijSzamitasa(percek, ingyenesPercek, oradij, napiPlafon): double
+}
+class Auto
+class Motor
+class Kisbusz
+class ElektromosAuto {
+  -toltottKilowattOrak: double
+}
+class Lakoauto <<jövőre>>
+
+class ParkolasiJegy {
+  -szintIndex: int
+  -erkezesiIdopont: long
+}
+class Parkolohaz {
+  -szintenkentiFoglaltsag: int[]
+  -napiKassza: double
+  +behajt(Jarmu): int
+  +kihajt(rendszam: String): double
+}
+class TeltHazException
+class IsmeretlenRendszamException
+
+Ora <|.. RendszerOra
+Ora <|.. FixOra
+
+Jarmu <|-- Auto
+Jarmu <|-- Motor
+Jarmu <|-- Kisbusz
+Jarmu <|-- ElektromosAuto
+Jarmu <|-- Lakoauto
+
+Parkolohaz --> Ora : idő
+Parkolohaz "1" o-- "*" ParkolasiJegy
+ParkolasiJegy --> Jarmu
+Parkolohaz ..> TeltHazException : dob
+Parkolohaz ..> IsmeretlenRendszamException : dob
+@enduml
