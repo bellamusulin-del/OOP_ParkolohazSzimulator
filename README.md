@@ -1,0 +1,1 @@
+# OOP_Parkol-h-z-szimul-tor
